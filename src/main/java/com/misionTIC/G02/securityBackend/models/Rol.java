@@ -10,7 +10,7 @@ public class Rol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String rol;
+    private String name;
     private String description;
 
 
@@ -22,12 +22,12 @@ public class Rol implements Serializable {
         this.id = id;
     }
 
-    public String getRol() {
-        return rol;
+    public String getName() {
+        return name;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setName(String rol) {
+        this.name = rol;
     }
 
     public String getDescription() {

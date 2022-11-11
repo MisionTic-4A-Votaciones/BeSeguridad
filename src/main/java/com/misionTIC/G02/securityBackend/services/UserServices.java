@@ -2,6 +2,7 @@ package com.misionTIC.G02.securityBackend.services;
 
 import com.misionTIC.G02.securityBackend.models.User;
 import com.misionTIC.G02.securityBackend.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class UserServices {
+    @Autowired
 
     private UserRepository userRepository;
 
@@ -45,7 +47,7 @@ public class UserServices {
                 if (updatedUser.getPassword()!=null)
                     tempUser.get().setPassword(updatedUser.getPassword());
 
-                    return this.userRepository.save(tempUser.get());
+                return this.userRepository.save(tempUser.get());
             }
             else {
                 return updatedUser;
@@ -56,7 +58,7 @@ public class UserServices {
         }
     }
     public boolean delete(int id){
-        Boolean success =this.show(id).map(user -> {
+        Boolean success = this.show(id).map(user -> {
             this.userRepository.delete(user);
             return true;
                 }
