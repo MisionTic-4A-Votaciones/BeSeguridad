@@ -17,28 +17,44 @@ public class Permission implements Serializable {
     @ManyToMany(mappedBy = "permissions")
     private Set<Rol>roles;
 
-
     public Integer getId() {
+        /**
+         * Getter
+         */
         return idPermission;
     }
 
     public void setId(Integer id) {
+        /**
+         * Setter
+         */
         this.idPermission = id;
     }
 
     public String getUrl() {
-        return url;
+        /**
+         * Getter
+         */return url;
     }
 
     public void setUrl(String url) {
+        /**
+         * Setter
+         */
         this.url = url;
     }
 
     public String getMethod() {
+        /**
+         * Getter
+         */
         return method;
     }
 
     public void setMethod(String method) {
+        /**
+         * Setter
+         */
         this.method = method;
     }
 }

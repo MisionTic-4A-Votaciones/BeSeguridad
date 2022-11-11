@@ -10,31 +10,48 @@ import java.util.Optional;
 
 @Service
 public class PermissionServices {
+    /**
+     * Business logic layer
+     */
     @Autowired
     private PermissionRepository permissionRepository;
 
     public List<Permission>index(){
+        /**
+         * Method implementation to bring all permissions
+         */
         return (List<Permission>) this.permissionRepository.findAll();
     }
 
     public Optional<Permission>show(int id){
+        /**
+         * Method implementation to bring a permission given an id
+         */
         return this.permissionRepository.findById(id);
     }
 
     public Permission create(Permission newPermission) {
+        /**
+         * Method implementation to create a new permission
+         */
         if (newPermission.getId() == null) {
             if (newPermission.getUrl() != null && newPermission.getMethod() != null)
                 return this.permissionRepository.save(newPermission);
 
             else {
+                //TODO return 400 code bad request
                 return newPermission;
             }
         } else {
+            //TODO validate if id exists, if not create
             return newPermission;
         }
     }
 
     public Permission update (int id,Permission updatedPermission){
+        /**
+         * Method implementation to update a permission given an id
+         */
         if (id >0){
             Optional<Permission>tempPermission =this.show(id);
             if (tempPermission.isPresent()){
@@ -47,11 +64,15 @@ public class PermissionServices {
             }
         }
         else{
+            //TODO return 400 BadRequest, no ID
             return updatedPermission;
         }
     }
 
     public boolean delete(int id){
+        /**
+         * Method implementation to delete a permission  given an id
+         */
         boolean success = this.show(id).map(permission -> {
             this.permissionRepository.delete(permission);
             return true;

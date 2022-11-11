@@ -17,29 +17,44 @@ public class RolController {
 
     @GetMapping("/all")
     public List<Rol> getAllRoles(){
+        /**
+         * Bring all roles
+         */
         return this.rolServices.index();
     }
 
     @GetMapping("/{id}")
     public Optional<Rol> getById(@PathVariable("id") int id){
+        /**
+         * Bring a role given the id
+         */
         return this.rolServices.show(id);
     }
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
     public Rol insertRol(@RequestBody Rol rol){
+        /**
+         * Create a new role
+         */
         return this.rolServices.create(rol);
     }
 
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Rol updateRol(@PathVariable("id") int id, @RequestBody Rol rol){
+        /**
+         * Update a role given an id
+         */
         return this.rolServices.update(id,rol);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteRol(@PathVariable("id") int id){
-    return this.rolServices.delete(id);
+        /**
+         * Delete a role given an id
+         */
+        return this.rolServices.delete(id);
     }
 }
