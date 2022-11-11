@@ -3,6 +3,7 @@ package com.misionTIC.G02.securityBackend.controllers;
 import com.misionTIC.G02.securityBackend.models.Rol;
 import com.misionTIC.G02.securityBackend.services.RolServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,16 +26,19 @@ public class RolController {
     }
 
     @PostMapping("/insert")
+    @ResponseStatus(HttpStatus.CREATED)
     public Rol insertRol(@RequestBody Rol rol){
         return this.rolServices.create(rol);
     }
 
     @PutMapping("/update/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Rol updateRol(@PathVariable("id") int id, @RequestBody Rol rol){
         return this.rolServices.update(id,rol);
     }
 
     @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteRol(@PathVariable("id") int id){
     return this.rolServices.delete(id);
     }

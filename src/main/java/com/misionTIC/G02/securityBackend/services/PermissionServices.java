@@ -38,10 +38,8 @@ public class PermissionServices {
         if (id >0){
             Optional<Permission>tempPermission =this.show(id);
             if (tempPermission.isPresent()){
-
                 if (updatedPermission.getUrl()!=null)
                     tempPermission.get().setUrl(updatedPermission.getUrl());
-
                 return this.permissionRepository.save(tempPermission.get());
             }
             else {
