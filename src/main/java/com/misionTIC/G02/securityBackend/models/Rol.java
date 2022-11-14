@@ -24,7 +24,7 @@ public class Rol implements Serializable {
     /**
      * Creation table that break the many-to-many relation
      */
-    @OneToMany
+    @ManyToMany
     @JoinTable(
             name = "permissions_rol",
             joinColumns = @JoinColumn(name = "idRol"),
