@@ -1,12 +1,18 @@
 package com.misionTIC.G02.securityBackend.services;
 
+import com.misionTIC.G02.securityBackend.models.Permission;
 import com.misionTIC.G02.securityBackend.models.Rol;
+import com.misionTIC.G02.securityBackend.repositories.PermissionRepository;
 import com.misionTIC.G02.securityBackend.repositories.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RolServices {
@@ -15,6 +21,8 @@ public class RolServices {
      */
     @Autowired
     private RolRepository rolRepository;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
     public List<Rol>index(){
         /**
@@ -80,5 +88,53 @@ public class RolServices {
             return true;
         }).orElse(false);
         return success;
+    }
+
+    public ResponseEntity<Rol> updateAddPermission(int idRol, int idPermission){
+        /**
+         * Method to add permissions to a rol
+         */
+        Optional<Rol>rol = this.rolRepository.findById(idRol);
+        if(rol.isPresent()){ //validated if id exist
+            Optional<Permission>permission = permissionRepository.findById(idPermission);
+            if (permission.isPresent()){ //validate if the permission have been already assigned
+                Set<Permission> tempPermissions = rol.get().getPermissions();
+                if(tempPermissions.contains(permission))
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Permission already assigned");
+                else {
+                    tempPermissions.add(permission.get());
+                    rol.get().setPermissions(tempPermissions);
+                    return new ResponseEntity<>(this.rolRepository.save(rol.get()),HttpStatus.CREATED);
+                }
+
+            }
+            else
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The provided idPermission is not  match for any database register");
+        }
+        else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The provided idRol is not  match for any database register");
+    }
+
+    public ResponseEntity<Boolean>validateGrant(int idRol, Permission permission){
+        /**
+         * Methods to validate
+         */
+        Boolean isGrant=false;
+        Optional<Rol>rol = this.rolRepository.findById(idRol);
+        if (rol.isPresent()){
+            for(Permission rolPermission:rol.get().getPermissions()){
+                if(rolPermission.getUrl().equals(permission.getUrl())&&
+                rolPermission.getMethod().equals(permission.getMethod())){
+                    isGrant=true;
+                    break;
+                }
+            }
+            if (isGrant)
+                return new ResponseEntity<>(true,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(false,HttpStatus.UNAUTHORIZED);
+        }
+        else
+            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "The provided rol doesn't exist on the database");
     }
 }

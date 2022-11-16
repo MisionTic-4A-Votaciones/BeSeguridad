@@ -1,9 +1,11 @@
 package com.misionTIC.G02.securityBackend.controllers;
 
+import com.misionTIC.G02.securityBackend.models.Rol;
 import com.misionTIC.G02.securityBackend.models.User;
 import com.misionTIC.G02.securityBackend.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
