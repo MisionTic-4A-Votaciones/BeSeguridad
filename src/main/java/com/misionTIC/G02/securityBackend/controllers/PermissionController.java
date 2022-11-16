@@ -32,7 +32,6 @@ public class PermissionController {
     }
 
     @PostMapping("/insert")
-    @ResponseStatus(HttpStatus.CREATED)
     public Permission insertPermission(@RequestBody Permission permission){
         /**
          * Create a new permission
@@ -41,7 +40,6 @@ public class PermissionController {
     }
 
     @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Permission updatePermission(@PathVariable("id")int id, @RequestBody Permission permission){
         /**
          * Update an existing permission given an id
@@ -51,7 +49,6 @@ public class PermissionController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deletePermission(@PathVariable("id")int id){
         /**
          * Delete a permission given the id

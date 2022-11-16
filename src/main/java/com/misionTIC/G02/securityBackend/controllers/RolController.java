@@ -32,7 +32,6 @@ public class RolController {
     }
 
     @PostMapping("/insert")
-    @ResponseStatus(HttpStatus.CREATED)
     public Rol insertRol(@RequestBody Rol rol){
         /**
          * Create a new role
@@ -41,7 +40,6 @@ public class RolController {
     }
 
     @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public Rol updateRol(@PathVariable("id") int id, @RequestBody Rol rol){
         /**
          * Update a role given an id
@@ -50,7 +48,6 @@ public class RolController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteRol(@PathVariable("id") int id){
         /**
          * Delete a role given an id

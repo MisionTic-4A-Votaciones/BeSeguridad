@@ -43,7 +43,6 @@ public class UserController {
 
 
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public User loginUser(@RequestBody User user){
         /**
          * User log in
@@ -52,7 +51,6 @@ public class UserController {
     }
 
     @PostMapping("/insert")
-    @ResponseStatus(HttpStatus.CREATED)
     public User insertUser(@RequestBody User user){
 
         /**
@@ -61,7 +59,6 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public User updateUser (@PathVariable("id") int id,@RequestBody User user){
         /**
          * Update an user given an id
@@ -70,7 +67,6 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteUser (@PathVariable("id") int id){
         /**
          * Delete an user given an id
