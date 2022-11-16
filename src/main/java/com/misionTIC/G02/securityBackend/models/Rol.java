@@ -21,9 +21,6 @@ public class Rol implements Serializable {
     @JsonIgnoreProperties("rol")
     private List<User> users;
 
-    /**
-     * Creation table that break the many-to-many relation
-     */
     @ManyToMany
     @JoinTable(
             name = "permissions_rol",
@@ -33,14 +30,14 @@ public class Rol implements Serializable {
     )
     private Set<Permission> permissions;
 
-    public Integer getId() {
+    public Integer getIdRol() {
         /**
          * Getter for id
          */
         return idRol;
     }
 
-    public void setId(Integer id) {
+    public void setIdRol(Integer id) {
         /**
          * Setter for id
          */
@@ -73,5 +70,16 @@ public class Rol implements Serializable {
          * Setter for description
          */
         this.description = description;
+    }
+
+    /**
+     * Creation table that break the many-to-many relation
+     */
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 }

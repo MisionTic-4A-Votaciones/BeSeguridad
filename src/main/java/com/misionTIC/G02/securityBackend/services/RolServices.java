@@ -34,7 +34,7 @@ public class RolServices {
         /**
          * Method implementation to create a new rol
          */
-        if(newRol.getId() == null){
+        if(newRol.getIdRol() == null){
             if (newRol.getName()!=null)
                 return this.rolRepository.save(newRol);
             else {

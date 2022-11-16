@@ -11,13 +11,13 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUser;
+    @Column(name = "nickname", nullable = false, unique = true)
     private  String nickname;
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+    @Column(name = "password", nullable = false)
     private  String password;
 
-    /**
-     * Relation tables User-Rol
-     */
     @ManyToOne
     @JoinColumn(name="idRol")
     @JsonIgnoreProperties("users")
@@ -28,13 +28,6 @@ public class User implements Serializable {
          * Getter
          */
         return idUser;
-    }
-
-    public void setId(Integer id) {
-        /**
-         * Setter
-         */
-        this.idUser = id;
     }
 
     public String getNickname() {
@@ -77,5 +70,16 @@ public class User implements Serializable {
          * Setter
          */
         this.password = password;
+    }
+
+    /**
+     * Relation tables User-Rol
+     */
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

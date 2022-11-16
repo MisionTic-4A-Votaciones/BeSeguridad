@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -22,12 +23,32 @@ public class UserController {
         return this.userServices.index();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/by_id/{id}")
     public Optional<User>getUserById(@PathVariable("id") int id){
         /**
          * Bring a user given an id
          */
         return  this.userServices.show(id);
+    }
+
+    @GetMapping("/by_nickname/{nickname}")
+    public Optional<User> getUserByNickname(@PathVariable("nickname")String nickname){
+        return this.userServices.showByNickname(nickname);
+    }
+
+    @GetMapping("/by_email/{email}")
+    public Optional<User> getUserByEmail(@PathVariable("email") String email){
+        return this.userServices.showByEmail(email);
+    }
+
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public User loginUser(@RequestBody User user){
+        /**
+         * User log in
+         */
+        return this.userServices.login(user);
     }
 
     @PostMapping("/insert")
